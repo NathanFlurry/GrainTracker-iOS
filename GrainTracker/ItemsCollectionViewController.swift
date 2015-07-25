@@ -7,32 +7,60 @@
 //
 
 import UIKit
+import Alamofire
 
 let reuseIdentifier = "ItemCell"
 
 class ItemsCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
+    // MARK: Data
+    var contentData: [Item] = []
+    
+    // MARK: Loading metrics
+    private let loadCount: Int = 10
+    private let preloadOffset: Int = 2
+    
+    func loadItems() {
+        Server.allItems(
+            contentData.count,
+            count: loadCount,
+            callback: {
+                items, error in
+                
+                if let error = error {
+                    self.presentViewController(
+                        HTTPErrorAlertController(error: error),
+                        animated: true,
+                        completion: nil
+                    )
+                } else if let items = items {
+                    // Add the items
+                    self.contentData += items
+                    
+                    // Reload the colleciton view
+                    self.collectionView?.reloadData()
+                }
+        })
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Sets the delgate to self, redundant to enable UICollectionViewDelegateFlowLayout
         collectionView?.delegate = self
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // Load the first items
+        loadItems()
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
 
     // MARK: UICollectionViewDataSource
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
@@ -41,34 +69,64 @@ class ItemsCollectionViewController: UICollectionViewController, UICollectionVie
 
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1000
+        return contentData.count
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! ItemCollectionViewCell
         
-        // Configure the cell
-        cell.titleLabel.text = "Some Item"
-        cell.detailsLabel.text = "A • B"
-        cell.sliderCountLabel.text = "0"
+        // Get the data
+        let data = contentData[indexPath.item]
         
-        var count = 0
+        // Configure the cell
+        cell.titleLabel.text = data.title
+        cell.sliderCountLabel.text = "0"
+        cell.updateSubtitle(data.packCount, totalItems: data.quantity)
+        
         cell.deltaChangeCallback = {
             change in
-            count += change
-            cell.sliderCountLabel.text = String(count)
+            // Change the count
+            data.quantity += change
+            cell.sliderCountLabel.text = String(data.quantity)
+            
+            // Update the subtitle
+            cell.updateSubtitle(data.packCount, totalItems: data.quantity)
         }
         
         cell.commitChanges = {
-            print("commit")
+            // Commit the changes to the server
+            data.commit()
+            
+            // Update the subtitle
+            cell.updateSubtitle(data.packCount, totalItems: data.quantity)
+        }
+        
+        cell.showNutrition = {
+            // Create the alert controller
+            let alertController = UIAlertController(title: "\(data.title)'s Nutrition Information", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+            alertController.message = data.nutritionInfo.renderText()
+            alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil))
+            
+            self.presentViewController(
+                alertController,
+                animated: true,
+                completion: nil
+            )
         }
     
         return cell
     }
     
+    override func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
+        // Load more, if needed
+        /*if indexPath.item >= contentData.count - preloadOffset {
+            loadItems()
+        }*/
+    }
+    
     // MARK: UICollectionViewFlowLayout
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        return CGSize(width: view.bounds.width / round(view.bounds.width / 160), height: 103)
+        return CGSize(width: view.bounds.width / round(view.bounds.width / 300), height: 103)
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {

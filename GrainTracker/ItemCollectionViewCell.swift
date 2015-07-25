@@ -15,6 +15,7 @@ class ItemCollectionViewCell: UICollectionViewCell {
     @IBOutlet var detailsLabel: UILabel!
     @IBOutlet var sliderView: UIView!
     @IBOutlet var sliderCountLabel: UILabel!
+    @IBOutlet var nutritionButton: UIButton!
     
     // State
     private var previousPosition: CGPoint?
@@ -22,6 +23,7 @@ class ItemCollectionViewCell: UICollectionViewCell {
     // Callbacks
     var deltaChangeCallback: (change: Int) -> Void = { change in }
     var commitChanges: () -> Void = {}
+    var showNutrition: () -> Void = {}
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -79,5 +81,14 @@ class ItemCollectionViewCell: UICollectionViewCell {
         default:
             break
         }
+    }
+    
+    func updateSubtitle(packCount: Int, totalItems: Int) {
+        detailsLabel.text = "\(packCount)-pack • \(totalItems * packCount) total"
+    }
+    
+    @IBAction func showNutrition(sender: UIButton) {
+        // Call the callback
+        showNutrition()
     }
 }
