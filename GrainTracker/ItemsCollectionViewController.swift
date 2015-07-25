@@ -49,6 +49,20 @@ class ItemsCollectionViewController: UICollectionViewController, UICollectionVie
         })
     }
     
+    func reloadAll() {
+        // Reset end
+        reachedEnd = false
+        
+        // Clear out the data
+        self.contentData = []
+        
+        // Load more data
+        self.loadItems()
+        
+        // Reload the data
+        self.collectionView?.reloadData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -92,6 +106,17 @@ class ItemsCollectionViewController: UICollectionViewController, UICollectionVie
         // Hide nutrition button if needed
         if data.nutritionInfo == nil {
             cell.nutritionButton.hidden = true
+        }
+        
+        // Set the image
+        Server.imageForKey(data.title) {
+            image, error in
+            guard error == nil else {
+                self.presentViewController(HTTPErrorAlertController(error: error!), animated: true, completion: nil)
+                return
+            }
+            
+            cell.imageView.image = image
         }
         
         // Callbacks
@@ -176,7 +201,51 @@ class ItemsCollectionViewController: UICollectionViewController, UICollectionVie
                 style: UIAlertActionStyle.Default,
                 handler: {
                     action in
-                    print("Barcode")
+                    let barcodeInput = UIAlertController(title: "Enter Barcode ID", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+                    var field: UITextField = UITextField()
+                    barcodeInput.addTextFieldWithConfigurationHandler({
+                        textField in
+                        textField.placeholder = "Barcode"
+                        field = textField
+                    })
+                    barcodeInput.addAction(
+                        UIAlertAction(
+                            title: "Cancel",
+                            style: UIAlertActionStyle.Default,
+                            handler: {
+                                action in
+                                barcodeInput.dismissViewControllerAnimated(true, completion: nil)
+                            }
+                        )
+                    )
+                    barcodeInput.addAction(
+                        UIAlertAction(
+                            title: "Create",
+                            style: UIAlertActionStyle.Cancel,
+                            handler: {
+                                action in
+                                barcodeInput.dismissViewControllerAnimated(true, completion: nil)
+                                if let text = field.text {
+                                    Server.itemFromBarcode(
+                                        text,
+                                        callback: {
+                                            error in
+                                            guard error == nil else {
+                                                self.presentViewController(HTTPErrorAlertController(error: error!), animated: true, completion: nil)
+                                                return
+                                            }
+                                            
+                                            alertController.dismissViewControllerAnimated(true, completion: nil)
+                                            
+                                            self.reloadAll()
+                                        }
+                                    )
+                                }
+                            }
+                        )
+                    )
+                    
+                    self.presentViewController(barcodeInput, animated: true, completion: nil)
                 }
             )
         )
@@ -219,14 +288,7 @@ class ItemsCollectionViewController: UICollectionViewController, UICollectionVie
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let vc = segue.destinationViewController as? ManualItemViewController {
             vc.callback = {
-                // Clear out the data
-                self.contentData = []
-                
-                // Load more data
-                self.loadItems()
-                
-                // Reload the data
-                self.collectionView?.reloadData()
+                self.reloadAll()
             }
         }
     }

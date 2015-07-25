@@ -52,6 +52,10 @@ class ItemCollectionViewCell: UICollectionViewCell {
         sliderView.addGestureRecognizer(panGestureRecognizer)
     }
     
+    override func prepareForReuse() {
+        imageView.image = nil
+    }
+    
     // UI events
     func sliderTapped(tap: UITapGestureRecognizer) {
         // Get the position of the touch

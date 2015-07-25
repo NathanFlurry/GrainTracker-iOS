@@ -13,7 +13,7 @@ import Alamofire
 typealias ServerItemCallback = (data: [Item]?, error: NSError?) -> Void
 
 class Server {
-    static var development: Bool = false
+    static var development: Bool = true
     static var baseURL: String = development ? "http://localhost:3000/api" : "http://graintracker.herokuapp.com/api"
     
     class func parseItemJSON(item: [String: AnyObject]) -> Item {
@@ -93,8 +93,56 @@ class Server {
             }
     }
     
-    class func postItem(item: Item) {
-        
+    class func itemFromBarcode(barcode: String, callback: (error: NSError?) -> Void) {
+        Alamofire.request(.POST, URLString: "\(Server.baseURL)/item/barcode/\(barcode)")
+            .validate(statusCode: 200..<300)
+            .validate(contentType: ["application/json"])
+            .responseJSON { (_, _, JSON, error) in
+                // Catch an error
+                guard error == nil else {
+                    callback(error: error)
+                    return
+                }
+                
+                // Do the callback
+                callback(error: nil)
+        }
+    }
+    
+    class func imageForKey(key: String, callback: (image: UIImage?, error: NSError?) -> Void) {
+        Alamofire.request(
+            .GET,
+            URLString: "https://ajax.googleapis.com/ajax/services/search/images",
+            parameters: [ "v": "1.0", "q": key ]
+        )
+            .validate(statusCode: 200..<300)
+            .validate(contentType: ["application/json"])
+            .responseJSON { (_, _, JSON, error) in
+                // Catch an error
+                guard error == nil || error?.code == -1 else {
+                    callback(image: nil, error: error)
+                    return
+                }
+                
+                // Get the actual image
+                if let url = (JSON?.valueForKeyPath("responseData.results") as! [NSObject])[1].valueForKey("url") as? String {
+                    
+                    Alamofire.request(.GET, URLString: url)
+                        .validate(statusCode: 200..<300)
+                        .responseImage { (_, _, image, error) in
+                            // Catch an error
+                            guard error == nil || error?.code == -1 else {
+                                callback(image: nil, error: error)
+                                return
+                            }
+                            
+                            // Deal with the imge
+                            callback(image: image, error: error)
+                        }
+                } else {
+                    print("Could not get URL.")
+                }
+            }
     }
 }
 
@@ -222,6 +270,10 @@ class HTTPErrorAlertController: UIAlertController {
         
         title = "Request Error: \(error.domain) #\(error.code)"
         message = "\(error.localizedDescription)"
+        
+        addAction(
+            UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil)
+        )
     }
 
     required init?(coder aDecoder: NSCoder) {
