@@ -80,7 +80,7 @@ class ItemsCollectionViewController: UICollectionViewController, UICollectionVie
         
         // Configure the cell
         cell.titleLabel.text = data.title
-        cell.sliderCountLabel.text = "0"
+        cell.sliderCountLabel.text = String(data.quantity)
         cell.updateSubtitle(data.packCount, totalItems: data.quantity)
         
         // Hide nutrition button if needed
@@ -109,7 +109,7 @@ class ItemsCollectionViewController: UICollectionViewController, UICollectionVie
         
         cell.showNutrition = {
             // Create the alert controller
-            let alertController = UIAlertController(title: "\(data.title)'s Nutrition Information", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+            let alertController = UIAlertController(title: "'\(data.title)' Nutrition Information", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
             alertController.message = data.nutritionInfo!.renderText()
             alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil))
             

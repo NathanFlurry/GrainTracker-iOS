@@ -41,14 +41,14 @@
                                             <rect key="frame" x="59" y="8" width="233" height="20.5"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12-pack • 144 total" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D9E-tq-0lf">
                                             <rect key="frame" x="59" y="30" width="233" height="20.5"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="italicSystem" pointSize="17"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="abj-V6-FLn">
@@ -58,12 +58,13 @@
                                                     <rect key="frame" x="128.5" y="11" width="43.5" height="20.5"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="LeftArrow" translatesAutoresizingMaskIntoConstraints="NO" id="aGG-F4-dMQ">
                                                     <rect key="frame" x="8" y="11" width="21" height="21"/>
                                                     <animations/>
+                                                    <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="21" id="TBJ-1L-Gr8"/>
                                                         <constraint firstAttribute="height" constant="21" id="enF-iS-mgD"/>
@@ -72,6 +73,7 @@
                                                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="RightArrow" translatesAutoresizingMaskIntoConstraints="NO" id="ILC-N4-xet">
                                                     <rect key="frame" x="271" y="11" width="21" height="21"/>
                                                     <animations/>
+                                                    <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="21" id="eiU-Ga-u4q"/>
                                                         <constraint firstAttribute="height" constant="21" id="uUy-Fn-qLx"/>
@@ -79,7 +81,7 @@
                                                 </imageView>
                                             </subviews>
                                             <animations/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstItem="F6D-sb-iI4" firstAttribute="centerX" secondItem="abj-V6-FLn" secondAttribute="centerX" id="2CO-Mo-jT3"/>
                                                 <constraint firstItem="F6D-sb-iI4" firstAttribute="centerY" secondItem="abj-V6-FLn" secondAttribute="centerY" id="YAs-Gt-Foc"/>
@@ -106,7 +108,7 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <animations/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.16698707460732987" green="0.16698707460732987" blue="0.16698707460732987" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="D9E-tq-0lf" firstAttribute="trailing" secondItem="dW6-vp-Oer" secondAttribute="trailingMargin" id="07c-IN-wJ8"/>
                                     <constraint firstItem="0vx-th-RfZ" firstAttribute="trailing" secondItem="dW6-vp-Oer" secondAttribute="trailingMargin" id="9ci-1O-Dnb"/>
@@ -127,7 +129,9 @@
                                 <connections>
                                     <outlet property="detailsLabel" destination="D9E-tq-0lf" id="Nnj-nj-eZh"/>
                                     <outlet property="imageView" destination="Xt6-BP-bS3" id="Jjr-EI-3TG"/>
+                                    <outlet property="leftSliderButton" destination="aGG-F4-dMQ" id="vrf-kQ-fL3"/>
                                     <outlet property="nutritionButton" destination="0vx-th-RfZ" id="43T-rh-k35"/>
+                                    <outlet property="rightSliderButton" destination="ILC-N4-xet" id="HrS-at-Mkf"/>
                                     <outlet property="sliderCountLabel" destination="F6D-sb-iI4" id="oea-gm-kS0"/>
                                     <outlet property="sliderView" destination="abj-V6-FLn" id="Anh-QT-koQ"/>
                                     <outlet property="titleLabel" destination="Mpe-vu-bbn" id="20Y-gr-Y8m"/>

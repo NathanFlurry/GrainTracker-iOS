@@ -16,9 +16,15 @@ class ItemCollectionViewCell: UICollectionViewCell {
     @IBOutlet var sliderView: UIView!
     @IBOutlet var sliderCountLabel: UILabel!
     @IBOutlet var nutritionButton: UIButton!
+    @IBOutlet var leftSliderButton: UIImageView!
+    @IBOutlet var rightSliderButton: UIImageView!
     
     // State
     private var previousPosition: CGPoint?
+    
+    // Style
+    private let idleColor = UIColor.whiteColor()
+    private let activeColor = ThemeColor
     
     // Callbacks
     var deltaChangeCallback: (change: Int) -> Void = { change in }
@@ -35,6 +41,9 @@ class ItemCollectionViewCell: UICollectionViewCell {
         imageView.layer.masksToBounds = true
         imageView.clipsToBounds = true
         
+        // Set slider state
+        setSliderState(.None)
+        
         // Add gesture recognizers
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("sliderTapped:"))
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: Selector("sliderPanned:"))
@@ -49,9 +58,17 @@ class ItemCollectionViewCell: UICollectionViewCell {
         
         // Test if to increment more or less
         if locationInView.x > sliderView.frame.midX {
+            // Callback
             deltaChangeCallback(change: 1)
+            
+            // Slider animation
+            setSliderState(.Right, quickAnimation: true)
         } else {
+            // Callback
             deltaChangeCallback(change: -1)
+            
+            // Slider animation
+            setSliderState(.Left, quickAnimation: true)
         }
     }
     
@@ -66,8 +83,16 @@ class ItemCollectionViewCell: UICollectionViewCell {
         case .Changed:
             // Get the delta
             if let prevPos = previousPosition {
+                // Callback
                 let delta = locationInView.x - prevPos.x
                 deltaChangeCallback(change: Int(delta))
+                
+                // Update slider look
+                if delta < 0 {
+                    setSliderState(.Left)
+                } else {
+                    setSliderState(.Right)
+                }
             }
             
             // Update the position
@@ -78,9 +103,44 @@ class ItemCollectionViewCell: UICollectionViewCell {
             
             // Commit the change to the value
             commitChanges()
+            
+            // Reset the slider state
+            setSliderState(.None)
         default:
             break
         }
+    }
+    
+    private enum SliderState {
+        case None, Right, Left
+    }
+    
+    private func setSliderState(state: SliderState, quickAnimation: Bool = false) {
+        UIView.animateWithDuration(
+            quickAnimation ? 0.0 : 0.4,
+            animations: {
+                switch state {
+                case .None:
+                    self.leftSliderButton.tintColor = self.idleColor
+                    self.rightSliderButton.tintColor = self.idleColor
+                    self.sliderCountLabel.textColor = self.idleColor
+                case .Right:
+                    self.leftSliderButton.tintColor = self.idleColor
+                    self.rightSliderButton.tintColor = self.activeColor
+                    self.sliderCountLabel.textColor = self.activeColor
+                case .Left:
+                    self.leftSliderButton.tintColor = self.activeColor
+                    self.rightSliderButton.tintColor = self.idleColor
+                    self.sliderCountLabel.textColor = self.activeColor
+                }
+            },
+            completion: {
+                completed in
+                if quickAnimation {
+                    self.setSliderState(.None)
+                }
+            }
+        )
     }
     
     func updateSubtitle(packCount: Int, totalItems: Int) {
