@@ -93,6 +93,9 @@ class ItemsCollectionViewController: UICollectionViewController, UICollectionVie
             change in
             // Change the count
             data.quantity += change
+            if data.quantity < 0 {
+                data.quantity = 0
+            }
             cell.sliderCountLabel.text = String(data.quantity)
             
             // Update the subtitle
