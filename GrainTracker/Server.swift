@@ -19,7 +19,7 @@ class Server {
     class func parseItemJSON(item: [String: AnyObject]) -> Item {
         let itemObject = Item(
             quantity: item["quantity"] as! Int,
-            barcode: item["barcode"] as? Int,
+            barcode: item["barcode"] as? String,
             title: item["title"] as! String,
             packCount: item["pack-count"] as! Int,
             nutritionInfo: nil
@@ -120,14 +120,14 @@ struct NutritionInfo { // In grams
 class Item {
     var id: String?
     var quantity: Int
-    var barcode: Int?
+    var barcode: String?
     var title: String
     var packCount: Int
     var nutritionInfo: NutritionInfo?
     
     var new: Bool = true
     
-    init(quantity: Int, barcode: Int?, title: String, packCount: Int, nutritionInfo: NutritionInfo?) {
+    init(quantity: Int, barcode: String?, title: String, packCount: Int, nutritionInfo: NutritionInfo?) {
         self.quantity = quantity
         self.barcode = barcode
         self.title = title
