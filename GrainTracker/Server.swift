@@ -13,7 +13,7 @@ import Alamofire
 typealias ServerItemCallback = (data: [Item]?, error: NSError?) -> Void
 
 class Server {
-    static var development: Bool = false
+    static var development: Bool = true
     static var baseURL: String = development ? "http://localhost:3000/api" : "http://graintracker.herokuapp.com/api"
     
     class func parseItemJSON(item: [String: AnyObject]) -> Item {
@@ -103,11 +103,11 @@ struct NutritionInfo { // In grams
     var protein: Float
     
     func renderText() -> String {
-        return "Calories: \(calories)" +
-        "Fat: \(fat)" +
-        "Cholesterol: \(cholesterol)" +
-        "Sodium: \(sodium):" +
-        "Carbohydrates: \(carbohydrates)" +
+        return "Calories: \(calories)\n" +
+        "Fat: \(fat)\n" +
+        "Cholesterol: \(cholesterol)\n" +
+        "Sodium: \(sodium)\n" +
+        "Carbohydrates: \(carbohydrates)\n" +
         "Protein: \(protein)"
     }
 }
