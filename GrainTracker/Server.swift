@@ -114,7 +114,7 @@ class Server {
             .GET,
             URLString: "https://ajax.googleapis.com/ajax/services/search/images",
             parameters: [ "v": "1.0", "q": key ]
-        )
+            )
             .validate(statusCode: 200..<300)
             .validate(contentType: ["application/json"])
             .responseJSON { (_, _, JSON, error) in
@@ -126,8 +126,8 @@ class Server {
                 
                 // Get the actual image
                 if let url = (JSON?.valueForKeyPath("responseData.results") as! [NSObject])[1].valueForKey("url") as? String {
-                    
-                    Alamofire.request(.GET, URLString: url)
+                    print(normalizeURL(url))
+                    Alamofire.request(.GET, URLString: normalizeURL(url))
                         .validate(statusCode: 200..<300)
                         .responseImage { (_, _, image, error) in
                             // Catch an error
@@ -138,11 +138,48 @@ class Server {
                             
                             // Deal with the imge
                             callback(image: image, error: error)
-                        }
+                    }
                 } else {
                     print("Could not get URL.")
                 }
-            }
+        }
+    }
+    
+    class func normalizeURL(url: String) -> String {
+        return url
+            .stringByReplacingOccurrencesOfString("%20", withString: " ")
+            .stringByReplacingOccurrencesOfString("%21", withString: "!")
+            .stringByReplacingOccurrencesOfString("%22", withString: "\"")
+            .stringByReplacingOccurrencesOfString("%23", withString: "#")
+            .stringByReplacingOccurrencesOfString("%24", withString: "$")
+            .stringByReplacingOccurrencesOfString("%25", withString: "%")
+            .stringByReplacingOccurrencesOfString("%26", withString: "&")
+            .stringByReplacingOccurrencesOfString("%27", withString: "'")
+            .stringByReplacingOccurrencesOfString("%28", withString: "(")
+            .stringByReplacingOccurrencesOfString("%29", withString: ")")
+            .stringByReplacingOccurrencesOfString("%2A", withString: "*")
+            .stringByReplacingOccurrencesOfString("%2B", withString: "+")
+            .stringByReplacingOccurrencesOfString("%2C", withString: ",")
+            .stringByReplacingOccurrencesOfString("%2D", withString: "-")
+            .stringByReplacingOccurrencesOfString("%2E", withString: ".")
+            .stringByReplacingOccurrencesOfString("%2F", withString: "/")
+            .stringByReplacingOccurrencesOfString("%3A", withString: ":")
+            .stringByReplacingOccurrencesOfString("%3B", withString: ";")
+            .stringByReplacingOccurrencesOfString("%3C", withString: "<")
+            .stringByReplacingOccurrencesOfString("%3D", withString: "=")
+            .stringByReplacingOccurrencesOfString("%3E", withString: ">")
+            .stringByReplacingOccurrencesOfString("%3F", withString: "?")
+            .stringByReplacingOccurrencesOfString("%40", withString: "@")
+            .stringByReplacingOccurrencesOfString("%5B", withString: "[")
+            .stringByReplacingOccurrencesOfString("%5C", withString: "\\")
+            .stringByReplacingOccurrencesOfString("%5D", withString: "]")
+            .stringByReplacingOccurrencesOfString("%5E", withString: "^")
+            .stringByReplacingOccurrencesOfString("%5F", withString: "_")
+            .stringByReplacingOccurrencesOfString("%60", withString: "`")
+            .stringByReplacingOccurrencesOfString("%7B", withString: "{")
+            .stringByReplacingOccurrencesOfString("%7C", withString: "|")
+            .stringByReplacingOccurrencesOfString("%7D", withString: "}")
+            .stringByReplacingOccurrencesOfString("%7E", withString: "~")
     }
 }
 
