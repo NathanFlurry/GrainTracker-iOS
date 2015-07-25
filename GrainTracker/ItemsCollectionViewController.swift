@@ -122,6 +122,11 @@ class ItemsCollectionViewController: UICollectionViewController, UICollectionVie
                 completion: nil
             )
         }
+        
+        cell.addToBag = {
+            // Add to bag
+            print("add to bag")
+        }
     
         return cell
     }
@@ -135,15 +140,15 @@ class ItemsCollectionViewController: UICollectionViewController, UICollectionVie
     
     // MARK: UICollectionViewFlowLayout
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        return CGSize(width: view.bounds.width / round(view.bounds.width / 300), height: 103)
+        return CGSize(width: view.bounds.width / round(view.bounds.width / 300) - 1, height: 208)
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
-        return 0
+        return 1
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
-        return 0
+        return 1
     }
 
     // MARK: UI actions

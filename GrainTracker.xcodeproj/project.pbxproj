@@ -27,10 +27,12 @@
 		D88AF5B61B638F48006506DE /* UIScrollView+Magic.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88AF5A91B638F48006506DE /* UIScrollView+Magic.swift */; };
 		D88AF5B71B638F48006506DE /* UINavigationBar+Magic.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88AF5AA1B638F48006506DE /* UINavigationBar+Magic.swift */; };
 		D88AF5BD1B638F5C006506DE /* Presets.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88AF5BC1B638F5C006506DE /* Presets.swift */; };
-		D8CB1B0C1B633B3F008EA9C3 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CB1B051B633AE4008EA9C3 /* Alamofire.framework */; };
-		D8CB1B0D1B633B3F008EA9C3 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D8CB1B051B633AE4008EA9C3 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D8CB1B121B633B5E008EA9C3 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CB1B111B633B5E008EA9C3 /* Server.swift */; };
+		D8D2E07F1B639E6F009D0C6A /* MTBBarcodeScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D2E07E1B639E6F009D0C6A /* MTBBarcodeScanner.m */; };
+		D8D2E0811B63A61E009D0C6A /* ManualItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D2E0801B63A61E009D0C6A /* ManualItemViewController.swift */; };
 		D8E7613E1B6324B600DE0B8F /* ItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E7613D1B6324B600DE0B8F /* ItemCollectionViewCell.swift */; };
+		D8EC66B91B6399A200EEAE1C /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EC66B81B6399A200EEAE1C /* ScannerViewController.swift */; };
+		D8EC66E71B639AF600EEAE1C /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8EC66E01B639AF000EEAE1C /* Alamofire.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,40 +43,33 @@
 			remoteGlobalIDString = 959AF7BE1B63112D00DBB81F;
 			remoteInfo = GrainTracker;
 		};
-		D8CB1B041B633AE4008EA9C3 /* PBXContainerItemProxy */ = {
+		D8EC66DF1B639AF000EEAE1C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = D8CB1AFD1B633AE3008EA9C3 /* Alamofire.xcodeproj */;
+			containerPortal = D8EC66D81B639AF000EEAE1C /* Alamofire.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = F8111E3319A95C8B0040E7D1;
 			remoteInfo = "Alamofire iOS";
 		};
-		D8CB1B061B633AE4008EA9C3 /* PBXContainerItemProxy */ = {
+		D8EC66E11B639AF000EEAE1C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = D8CB1AFD1B633AE3008EA9C3 /* Alamofire.xcodeproj */;
+			containerPortal = D8EC66D81B639AF000EEAE1C /* Alamofire.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 4DD67C0B1A5C55C900ED2280;
 			remoteInfo = "Alamofire OSX";
 		};
-		D8CB1B081B633AE4008EA9C3 /* PBXContainerItemProxy */ = {
+		D8EC66E31B639AF000EEAE1C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = D8CB1AFD1B633AE3008EA9C3 /* Alamofire.xcodeproj */;
+			containerPortal = D8EC66D81B639AF000EEAE1C /* Alamofire.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = F8111E3E19A95C8B0040E7D1;
 			remoteInfo = "Alamofire iOS Tests";
 		};
-		D8CB1B0A1B633AE4008EA9C3 /* PBXContainerItemProxy */ = {
+		D8EC66E51B639AF000EEAE1C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = D8CB1AFD1B633AE3008EA9C3 /* Alamofire.xcodeproj */;
+			containerPortal = D8EC66D81B639AF000EEAE1C /* Alamofire.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = F829C6B21A7A94F100A2CD59;
 			remoteInfo = "Alamofire OSX Tests";
-		};
-		D8CB1B0E1B633B3F008EA9C3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D8CB1AFD1B633AE3008EA9C3 /* Alamofire.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = F8111E3219A95C8B0040E7D1;
-			remoteInfo = "Alamofire iOS";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -85,7 +80,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				D8CB1B0D1B633B3F008EA9C3 /* Alamofire.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -117,9 +111,15 @@
 		D88AF5A91B638F48006506DE /* UIScrollView+Magic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Magic.swift"; sourceTree = "<group>"; };
 		D88AF5AA1B638F48006506DE /* UINavigationBar+Magic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+Magic.swift"; sourceTree = "<group>"; };
 		D88AF5BC1B638F5C006506DE /* Presets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Presets.swift; sourceTree = "<group>"; };
-		D8CB1AFD1B633AE3008EA9C3 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = "../../Downloads/Alamofire-swift-2.0/Alamofire.xcodeproj"; sourceTree = "<group>"; };
 		D8CB1B111B633B5E008EA9C3 /* Server.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
+		D8D2E0771B639DB9009D0C6A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		D8D2E07D1B639E6F009D0C6A /* MTBBarcodeScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTBBarcodeScanner.h; sourceTree = "<group>"; };
+		D8D2E07E1B639E6F009D0C6A /* MTBBarcodeScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTBBarcodeScanner.m; sourceTree = "<group>"; };
+		D8D2E0801B63A61E009D0C6A /* ManualItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManualItemViewController.swift; sourceTree = "<group>"; };
 		D8E7613D1B6324B600DE0B8F /* ItemCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemCollectionViewCell.swift; sourceTree = "<group>"; };
+		D8EC66B41B6398FA00EEAE1C /* GrainTracker-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GrainTracker-Bridging-Header.h"; sourceTree = "<group>"; };
+		D8EC66B81B6399A200EEAE1C /* ScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
+		D8EC66D81B639AF000EEAE1C /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,7 +127,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8CB1B0C1B633B3F008EA9C3 /* Alamofire.framework in Frameworks */,
+				D8EC66E71B639AF600EEAE1C /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -144,7 +144,8 @@
 		959AF7B61B63112D00DBB81F = {
 			isa = PBXGroup;
 			children = (
-				D8CB1AFD1B633AE3008EA9C3 /* Alamofire.xcodeproj */,
+				D8D2E0771B639DB9009D0C6A /* AVFoundation.framework */,
+				D8EC66D81B639AF000EEAE1C /* Alamofire.xcodeproj */,
 				959AF7C11B63112D00DBB81F /* GrainTracker */,
 				959AF7D71B63112D00DBB81F /* GrainTrackerTests */,
 				959AF7C01B63112D00DBB81F /* Products */,
@@ -166,6 +167,8 @@
 				959AF7C41B63112D00DBB81F /* AppDelegate.swift */,
 				959AF7E41B6312BF00DBB81F /* ItemsCollectionViewController.swift */,
 				D8E7613D1B6324B600DE0B8F /* ItemCollectionViewCell.swift */,
+				D8EC66B81B6399A200EEAE1C /* ScannerViewController.swift */,
+				D8D2E0801B63A61E009D0C6A /* ManualItemViewController.swift */,
 				D8CB1B111B633B5E008EA9C3 /* Server.swift */,
 				959AF7C81B63112D00DBB81F /* Main.storyboard */,
 				959AF7CB1B63112D00DBB81F /* Images.xcassets */,
@@ -179,6 +182,8 @@
 			isa = PBXGroup;
 			children = (
 				D88AF5BC1B638F5C006506DE /* Presets.swift */,
+				D8EC66B41B6398FA00EEAE1C /* GrainTracker-Bridging-Header.h */,
+				D8EC66B31B6398E500EEAE1C /* MTBBarcodeScanner */,
 				D88AF5BB1B638F4C006506DE /* Shared */,
 				959AF7C31B63112D00DBB81F /* Info.plist */,
 			);
@@ -222,13 +227,22 @@
 			name = Shared;
 			sourceTree = "<group>";
 		};
-		D8CB1AFE1B633AE3008EA9C3 /* Products */ = {
+		D8EC66B31B6398E500EEAE1C /* MTBBarcodeScanner */ = {
 			isa = PBXGroup;
 			children = (
-				D8CB1B051B633AE4008EA9C3 /* Alamofire.framework */,
-				D8CB1B071B633AE4008EA9C3 /* Alamofire.framework */,
-				D8CB1B091B633AE4008EA9C3 /* Alamofire iOS Tests.xctest */,
-				D8CB1B0B1B633AE4008EA9C3 /* Alamofire OSX Tests.xctest */,
+				D8D2E07D1B639E6F009D0C6A /* MTBBarcodeScanner.h */,
+				D8D2E07E1B639E6F009D0C6A /* MTBBarcodeScanner.m */,
+			);
+			name = MTBBarcodeScanner;
+			sourceTree = "<group>";
+		};
+		D8EC66D91B639AF000EEAE1C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D8EC66E01B639AF000EEAE1C /* Alamofire.framework */,
+				D8EC66E21B639AF000EEAE1C /* Alamofire.framework */,
+				D8EC66E41B639AF000EEAE1C /* Alamofire iOS Tests.xctest */,
+				D8EC66E61B639AF000EEAE1C /* Alamofire OSX Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -248,7 +262,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				D8CB1B0F1B633B3F008EA9C3 /* PBXTargetDependency */,
 			);
 			name = GrainTracker;
 			productName = GrainTracker;
@@ -286,6 +299,7 @@
 				TargetAttributes = {
 					959AF7BE1B63112D00DBB81F = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = US5KT4GR2Y;
 					};
 					959AF7D31B63112D00DBB81F = {
 						CreatedOnToolsVersion = 6.4;
@@ -306,8 +320,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = D8CB1AFE1B633AE3008EA9C3 /* Products */;
-					ProjectRef = D8CB1AFD1B633AE3008EA9C3 /* Alamofire.xcodeproj */;
+					ProductGroup = D8EC66D91B639AF000EEAE1C /* Products */;
+					ProjectRef = D8EC66D81B639AF000EEAE1C /* Alamofire.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -319,32 +333,32 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		D8CB1B051B633AE4008EA9C3 /* Alamofire.framework */ = {
+		D8EC66E01B639AF000EEAE1C /* Alamofire.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = Alamofire.framework;
-			remoteRef = D8CB1B041B633AE4008EA9C3 /* PBXContainerItemProxy */;
+			remoteRef = D8EC66DF1B639AF000EEAE1C /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		D8CB1B071B633AE4008EA9C3 /* Alamofire.framework */ = {
+		D8EC66E21B639AF000EEAE1C /* Alamofire.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = Alamofire.framework;
-			remoteRef = D8CB1B061B633AE4008EA9C3 /* PBXContainerItemProxy */;
+			remoteRef = D8EC66E11B639AF000EEAE1C /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		D8CB1B091B633AE4008EA9C3 /* Alamofire iOS Tests.xctest */ = {
+		D8EC66E41B639AF000EEAE1C /* Alamofire iOS Tests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = "Alamofire iOS Tests.xctest";
-			remoteRef = D8CB1B081B633AE4008EA9C3 /* PBXContainerItemProxy */;
+			remoteRef = D8EC66E31B639AF000EEAE1C /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		D8CB1B0B1B633AE4008EA9C3 /* Alamofire OSX Tests.xctest */ = {
+		D8EC66E61B639AF000EEAE1C /* Alamofire OSX Tests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = "Alamofire OSX Tests.xctest";
-			remoteRef = D8CB1B0A1B633AE4008EA9C3 /* PBXContainerItemProxy */;
+			remoteRef = D8EC66E51B639AF000EEAE1C /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -377,6 +391,7 @@
 				D88AF5AE1B638F48006506DE /* String+Magic.swift in Sources */,
 				D88AF5B71B638F48006506DE /* UINavigationBar+Magic.swift in Sources */,
 				D8E7613E1B6324B600DE0B8F /* ItemCollectionViewCell.swift in Sources */,
+				D8EC66B91B6399A200EEAE1C /* ScannerViewController.swift in Sources */,
 				D88AF5B41B638F48006506DE /* LoremIpsumGenerator.swift in Sources */,
 				D88AF5BD1B638F5C006506DE /* Presets.swift in Sources */,
 				D88AF5AD1B638F48006506DE /* UIColor+Magic.swift in Sources */,
@@ -384,8 +399,10 @@
 				D88AF5B31B638F48006506DE /* Timer.swift in Sources */,
 				959AF7C51B63112D00DBB81F /* AppDelegate.swift in Sources */,
 				D88AF5B61B638F48006506DE /* UIScrollView+Magic.swift in Sources */,
+				D8D2E07F1B639E6F009D0C6A /* MTBBarcodeScanner.m in Sources */,
 				D8CB1B121B633B5E008EA9C3 /* Server.swift in Sources */,
 				D88AF5AC1B638F48006506DE /* UIImage+Magic.swift in Sources */,
+				D8D2E0811B63A61E009D0C6A /* ManualItemViewController.swift in Sources */,
 				D88AF5AF1B638F48006506DE /* Dictionary+Magic.swift in Sources */,
 				D88AF5B11B638F48006506DE /* Numbers+Magic.swift in Sources */,
 				D88AF5B21B638F48006506DE /* CoreGraphics+Magic.swift in Sources */,
@@ -410,11 +427,6 @@
 			isa = PBXTargetDependency;
 			target = 959AF7BE1B63112D00DBB81F /* GrainTracker */;
 			targetProxy = 959AF7D51B63112D00DBB81F /* PBXContainerItemProxy */;
-		};
-		D8CB1B0F1B633B3F008EA9C3 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "Alamofire iOS";
-			targetProxy = D8CB1B0E1B633B3F008EA9C3 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -526,11 +538,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = GrainTracker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "GrainTracker/GrainTracker-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -538,11 +555,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = GrainTracker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "GrainTracker/GrainTracker-Bridging-Header.h";
 			};
 			name = Release;
 		};

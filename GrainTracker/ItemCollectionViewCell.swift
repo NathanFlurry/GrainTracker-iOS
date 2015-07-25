@@ -30,6 +30,7 @@ class ItemCollectionViewCell: UICollectionViewCell {
     var deltaChangeCallback: (change: Int) -> Void = { change in }
     var commitChanges: () -> Void = {}
     var showNutrition: () -> Void = {}
+    var addToBag: () -> Void = {}
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -150,5 +151,10 @@ class ItemCollectionViewCell: UICollectionViewCell {
     @IBAction func showNutrition(sender: UIButton) {
         // Call the callback
         showNutrition()
+    }
+    
+    @IBAction func addToBag(sender: UIButton) {
+        // Call the callback
+        addToBag()
     }
 }
