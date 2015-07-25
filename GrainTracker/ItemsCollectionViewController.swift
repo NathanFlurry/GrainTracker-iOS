@@ -83,6 +83,12 @@ class ItemsCollectionViewController: UICollectionViewController, UICollectionVie
         cell.sliderCountLabel.text = "0"
         cell.updateSubtitle(data.packCount, totalItems: data.quantity)
         
+        // Hide nutrition button if needed
+        if data.nutritionInfo == nil {
+            cell.nutritionButton.hidden = true
+        }
+        
+        // Callbacks
         cell.deltaChangeCallback = {
             change in
             // Change the count
