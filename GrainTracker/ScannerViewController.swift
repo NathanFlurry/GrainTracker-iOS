@@ -11,13 +11,13 @@ import UIKit
 class ScannerViewController: UIViewController {
     @IBOutlet var scannerView: UIView!
     
-    var barcodeScanner: MTBBarcodeScanner!
+    //var barcodeScanner: MTBBarcodeScanner!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Make barcode scanner
-        barcodeScanner = MTBBarcodeScanner(previewView: scannerView)
+        //barcodeScanner = MTBBarcodeScanner(previewView: scannerView)
     }
 
     override func didReceiveMemoryWarning() {

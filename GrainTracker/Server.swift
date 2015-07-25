@@ -13,7 +13,7 @@ import Alamofire
 typealias ServerItemCallback = (data: [Item]?, error: NSError?) -> Void
 
 class Server {
-    static var development: Bool = true
+    static var development: Bool = false
     static var baseURL: String = development ? "http://localhost:3000/api" : "http://graintracker.herokuapp.com/api"
     
     class func parseItemJSON(item: [String: AnyObject]) -> Item {
@@ -125,8 +125,7 @@ class Server {
                 }
                 
                 // Get the actual image
-                if let url = (JSON?.valueForKeyPath("responseData.results") as! [NSObject])[1].valueForKey("url") as? String {
-                    print(normalizeURL(url))
+                if let url = (JSON?.valueForKeyPath("responseData.results") as! NSArray)[1].valueForKey("url") as? String {
                     Alamofire.request(.GET, URLString: normalizeURL(url))
                         .validate(statusCode: 200..<300)
                         .responseImage { (_, _, image, error) in
@@ -194,11 +193,11 @@ struct NutritionInfo { // In grams
     
     func renderText() -> String {
         return "Calories: \(calories)\n" +
-        "Fat: \(fat)\n" +
-        "Cholesterol: \(cholesterol)\n" +
-        "Sodium: \(sodium)\n" +
-        "Carbohydrates: \(carbohydrates)\n" +
-        "Protein: \(protein)"
+        "Fat: \(fat) g\n" +
+        "Cholesterol: \(cholesterol) g\n" +
+        "Sodium: \(sodium) g\n" +
+        "Carbohydrates: \(carbohydrates) g\n" +
+        "Protein: \(protein) g"
     }
 }
 

@@ -142,6 +142,9 @@
                                     <constraint firstItem="abj-V6-FLn" firstAttribute="leading" secondItem="dW6-vp-Oer" secondAttribute="leadingMargin" constant="-8" id="xLf-q8-eBV"/>
                                 </constraints>
                                 <variation key="default">
+                                    <mask key="subviews">
+                                        <exclude reference="uES-C5-H9h"/>
+                                    </mask>
                                     <mask key="constraints">
                                         <exclude reference="42A-5d-5Jw"/>
                                         <exclude reference="K6W-rW-ghE"/>
@@ -166,7 +169,6 @@
                     </collectionView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Items" id="otp-QA-YwV">
-                        <barButtonItem key="leftBarButtonItem" title="Bags" id="qKA-FK-gr5"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="e6A-of-csx">
                             <connections>
                                 <action selector="addItemBarButtonItemTapped:" destination="936-Yi-MhN" id="Bcf-XM-dFI"/>
