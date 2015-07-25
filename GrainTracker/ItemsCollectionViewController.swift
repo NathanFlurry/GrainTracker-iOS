@@ -104,7 +104,12 @@ class ItemsCollectionViewController: UICollectionViewController, UICollectionVie
         
         cell.commitChanges = {
             // Commit the changes to the server
-            data.commit()
+            data.commit {
+                error in
+                if let error = error {
+                    self.presentViewController(HTTPErrorAlertController(error: error), animated: true, completion: nil)
+                }
+            }
             
             // Update the subtitle
             cell.updateSubtitle(data.packCount, totalItems: data.quantity)

@@ -13,18 +13,19 @@ import Alamofire
 typealias ServerItemCallback = (data: [Item]?, error: NSError?) -> Void
 
 class Server {
-    static var development: Bool = false
+    static var development: Bool = true
     static var baseURL: String = development ? "http://localhost:3000/api" : "http://graintracker.herokuapp.com/api"
     
     class func parseItemJSON(item: [String: AnyObject]) -> Item {
         let itemObject = Item(
-            id: item["_id"] as! String,
             quantity: item["quantity"] as! Int,
             barcode: item["barcode"] as? Int,
             title: item["title"] as! String,
             packCount: item["pack-count"] as! Int,
             nutritionInfo: nil
         )
+        itemObject.id = item["_id"] as? String
+        itemObject.new = false
         
         if let nutrition = item["nutrition"] as? [String: Float] {
             itemObject.nutritionInfo = NutritionInfo(
@@ -91,6 +92,10 @@ class Server {
                 callback(data: items, error: nil)
             }
     }
+    
+    class func postItem(item: Item) {
+        
+    }
 }
 
 // MARK: Data holders
@@ -113,15 +118,16 @@ struct NutritionInfo { // In grams
 }
 
 class Item {
-    var id: String
+    var id: String?
     var quantity: Int
     var barcode: Int?
     var title: String
     var packCount: Int
     var nutritionInfo: NutritionInfo?
     
-    init(id: String, quantity: Int, barcode: Int?, title: String, packCount: Int, nutritionInfo: NutritionInfo?) {
-        self.id = id
+    var new: Bool = true
+    
+    init(quantity: Int, barcode: Int?, title: String, packCount: Int, nutritionInfo: NutritionInfo?) {
         self.quantity = quantity
         self.barcode = barcode
         self.title = title
@@ -130,20 +136,84 @@ class Item {
     }
     
     // Methods
-    func commit() {
-        
-    }
-}
-
-class User {
-    var id: String
-    var username: String
-    var displayName: String
-    
-    init(id: String, username: String, displayName: String) {
-        self.id = id
-        self.username = username
-        self.displayName = displayName
+    func commit(callback: (error: NSError?) -> Void) {
+        // Commit it
+        if new {
+            // Make the request
+            var rawJSON = [
+                "quantity": quantity,
+                "title": title,
+                "pack-count": packCount
+            ] as [String: AnyObject]
+            
+            if let barcode = barcode {
+                rawJSON["barcode"] = barcode
+            }
+            
+            if let nutrition = nutritionInfo {
+                rawJSON["nutrition"] = [
+                    "calories": nutrition.calories,
+                    "fat": nutrition.fat,
+                    "cholesterol": nutrition.cholesterol,
+                    "sodium": nutrition.sodium,
+                    "carbohydrates": nutrition.carbohydrates,
+                    "protein": nutrition.protein
+                ]
+            }
+            
+            print(rawJSON)
+            
+            Alamofire.request(.POST, URLString: "\(Server.baseURL)/item", parameters: rawJSON)
+                .validate(statusCode: 200..<300)
+                .validate(contentType: ["application/json"])
+                .responseJSON { (_, _, JSON, error) in
+                    // Catch an error
+                    guard error == nil else {
+                        callback(error: error)
+                        return
+                    }
+                    
+                    // Do the callback
+                    callback(error: nil)
+            }
+            
+            new = false
+        } else {
+            var rawJSON = [
+                "quantity": quantity,
+                "title": title,
+                "pack-count": packCount
+            ] as [String: AnyObject]
+            
+            if let barcode = barcode {
+                rawJSON["barcode"] = barcode
+            }
+            
+            if let nutrition = nutritionInfo {
+                rawJSON["nutrition"] = [
+                    "calories": nutrition.calories,
+                    "fat": nutrition.fat,
+                    "cholesterol": nutrition.cholesterol,
+                    "sodium": nutrition.sodium,
+                    "carbohydrates": nutrition.carbohydrates,
+                    "protein": nutrition.protein
+                ]
+            }
+            
+            Alamofire.request(.POST, URLString: "\(Server.baseURL)/item/\(id!)/update", parameters: rawJSON, encoding: .JSON)
+                .validate(statusCode: 200..<300)
+                .validate(contentType: ["application/json"])
+                .responseJSON { (_, _, JSON, error) in
+                    // Catch an error
+                    guard error == nil else {
+                        callback(error: error)
+                        return
+                    }
+                    
+                    // Do the callback
+                    callback(error: nil)
+            }
+        }
     }
 }
 
@@ -154,8 +224,7 @@ class HTTPErrorAlertController: UIAlertController {
         super.init(nibName: nil, bundle: nil)
         
         title = "Request Error: \(error.domain) #\(error.code)"
-        message = error.localizedDescription
-        preferredStyle
+        message = "\(error.localizedDescription)"
     }
 
     required init?(coder aDecoder: NSCoder) {

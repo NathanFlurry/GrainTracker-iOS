@@ -61,12 +61,14 @@ class ItemCollectionViewCell: UICollectionViewCell {
         if locationInView.x > sliderView.frame.midX {
             // Callback
             deltaChangeCallback(change: 1)
+            commitChanges()
             
             // Slider animation
             setSliderState(.Right, quickAnimation: true)
         } else {
             // Callback
             deltaChangeCallback(change: -1)
+            commitChanges()
             
             // Slider animation
             setSliderState(.Left, quickAnimation: true)

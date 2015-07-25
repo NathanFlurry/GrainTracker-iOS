@@ -112,7 +112,6 @@
 		D88AF5AA1B638F48006506DE /* UINavigationBar+Magic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+Magic.swift"; sourceTree = "<group>"; };
 		D88AF5BC1B638F5C006506DE /* Presets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Presets.swift; sourceTree = "<group>"; };
 		D8CB1B111B633B5E008EA9C3 /* Server.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
-		D8D2E0771B639DB9009D0C6A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		D8D2E07D1B639E6F009D0C6A /* MTBBarcodeScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTBBarcodeScanner.h; sourceTree = "<group>"; };
 		D8D2E07E1B639E6F009D0C6A /* MTBBarcodeScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTBBarcodeScanner.m; sourceTree = "<group>"; };
 		D8D2E0801B63A61E009D0C6A /* ManualItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManualItemViewController.swift; sourceTree = "<group>"; };
@@ -144,7 +143,6 @@
 		959AF7B61B63112D00DBB81F = {
 			isa = PBXGroup;
 			children = (
-				D8D2E0771B639DB9009D0C6A /* AVFoundation.framework */,
 				D8EC66D81B639AF000EEAE1C /* Alamofire.xcodeproj */,
 				959AF7C11B63112D00DBB81F /* GrainTracker */,
 				959AF7D71B63112D00DBB81F /* GrainTrackerTests */,
