@@ -93,8 +93,10 @@ class ItemCollectionViewCell: UICollectionViewCell {
                 // Update slider look
                 if delta < 0 {
                     setSliderState(.Left)
-                } else {
+                } else if delta > 0 {
                     setSliderState(.Right)
+                } else {
+                    setSliderState(.All)
                 }
             }
             
@@ -115,7 +117,7 @@ class ItemCollectionViewCell: UICollectionViewCell {
     }
     
     private enum SliderState {
-        case None, Right, Left
+        case None, All, Right, Left
     }
     
     private func setSliderState(state: SliderState, quickAnimation: Bool = false) {
@@ -127,6 +129,10 @@ class ItemCollectionViewCell: UICollectionViewCell {
                     self.leftSliderButton.tintColor = self.idleColor
                     self.rightSliderButton.tintColor = self.idleColor
                     self.sliderCountLabel.textColor = self.idleColor
+                case .All:
+                    self.leftSliderButton.tintColor = self.activeColor
+                    self.rightSliderButton.tintColor = self.activeColor
+                    self.sliderCountLabel.textColor = self.activeColor
                 case .Right:
                     self.leftSliderButton.tintColor = self.idleColor
                     self.rightSliderButton.tintColor = self.activeColor

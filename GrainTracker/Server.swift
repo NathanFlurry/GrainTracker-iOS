@@ -161,8 +161,6 @@ class Item {
                 ]
             }
             
-            print(rawJSON)
-            
             Alamofire.request(.POST, URLString: "\(Server.baseURL)/item", parameters: rawJSON)
                 .validate(statusCode: 200..<300)
                 .validate(contentType: ["application/json"])

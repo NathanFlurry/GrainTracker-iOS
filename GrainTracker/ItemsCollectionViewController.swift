@@ -138,9 +138,9 @@ class ItemsCollectionViewController: UICollectionViewController, UICollectionVie
     
     override func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
         // Load more, if needed
-        /*if indexPath.item >= contentData.count - preloadOffset {
+        if indexPath.item >= contentData.count - preloadOffset {
             loadItems()
-        }*/
+        }
     }
     
     // MARK: UICollectionViewFlowLayout
@@ -208,6 +208,14 @@ class ItemsCollectionViewController: UICollectionViewController, UICollectionVie
             animated: true,
             completion: nil
         )
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let vc = segue.destinationViewController as? ManualItemViewController {
+            vc.callback = {
+                self.collectionView?.reloadData()
+            }
+        }
     }
 
 }
