@@ -104,7 +104,7 @@ class ItemsCollectionViewController: UICollectionViewController, UICollectionVie
         cell.showNutrition = {
             // Create the alert controller
             let alertController = UIAlertController(title: "\(data.title)'s Nutrition Information", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-            alertController.message = data.nutritionInfo.renderText()
+            alertController.message = data.nutritionInfo!.renderText()
             alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil))
             
             self.presentViewController(

@@ -13,19 +13,21 @@ import Alamofire
 typealias ServerItemCallback = (data: [Item]?, error: NSError?) -> Void
 
 class Server {
-    static var development: Bool = true
+    static var development: Bool = false
     static var baseURL: String = development ? "http://localhost:3000/api" : "http://graintracker.herokuapp.com/api"
     
     class func parseItemJSON(item: [String: AnyObject]) -> Item {
-        let nutrition = item["nutrition"] as! [String: Float]
-        
-        let item = Item(
+        let itemObject = Item(
             id: item["_id"] as! String,
             quantity: item["quantity"] as! Int,
             barcode: item["barcode"] as? Int,
             title: item["title"] as! String,
             packCount: item["pack-count"] as! Int,
-            nutritionInfo: NutritionInfo(
+            nutritionInfo: nil
+        )
+        
+        if let nutrition = item["nutrition"] as? [String: Float] {
+            itemObject.nutritionInfo = NutritionInfo(
                 calories: nutrition["calories"]!,
                 fat: nutrition["fat"]!,
                 cholesterol: nutrition["cholesterol"]!,
@@ -33,9 +35,9 @@ class Server {
                 carbohydrates: nutrition["carbohydrates"]!,
                 protein: nutrition["protein"]!
             )
-        )
+        }
         
-        return item
+        return itemObject
     }
     
     class func allItems(offset: Int, count: Int, callback: ServerItemCallback) {
@@ -116,9 +118,9 @@ class Item {
     var barcode: Int?
     var title: String
     var packCount: Int
-    var nutritionInfo: NutritionInfo
+    var nutritionInfo: NutritionInfo?
     
-    init(id: String, quantity: Int, barcode: Int?, title: String, packCount: Int, nutritionInfo: NutritionInfo) {
+    init(id: String, quantity: Int, barcode: Int?, title: String, packCount: Int, nutritionInfo: NutritionInfo?) {
         self.id = id
         self.quantity = quantity
         self.barcode = barcode
