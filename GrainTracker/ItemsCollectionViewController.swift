@@ -19,6 +19,7 @@ class ItemsCollectionViewController: UICollectionViewController, UICollectionVie
     // MARK: Loading metrics
     private let loadCount: Int = 10
     private let preloadOffset: Int = 2
+    private var reachedEnd: Bool = false
     
     func loadItems() {
         Server.allItems(
@@ -34,6 +35,11 @@ class ItemsCollectionViewController: UICollectionViewController, UICollectionVie
                         completion: nil
                     )
                 } else if let items = items {
+                    // Test if at end
+                    if items.count < self.loadCount {
+                        self.reachedEnd = true
+                    }
+                    
                     // Add the items
                     self.contentData += items
                     
@@ -138,7 +144,7 @@ class ItemsCollectionViewController: UICollectionViewController, UICollectionVie
     
     override func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
         // Load more, if needed
-        if indexPath.item >= contentData.count - preloadOffset {
+        if indexPath.item >= contentData.count - preloadOffset && !reachedEnd {
             loadItems()
         }
     }
@@ -213,6 +219,13 @@ class ItemsCollectionViewController: UICollectionViewController, UICollectionVie
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let vc = segue.destinationViewController as? ManualItemViewController {
             vc.callback = {
+                // Clear out the data
+                self.contentData = []
+                
+                // Load more data
+                self.loadItems()
+                
+                // Reload the data
                 self.collectionView?.reloadData()
             }
         }

@@ -96,7 +96,7 @@ class ManualItemViewController: UITableViewController, UITextFieldDelegate {
         }
         
         // Start request
-        _ = Item(
+        let item = Item(
             quantity: Int(values[2])!,
             barcode: nil,
             title: values[0],
@@ -109,7 +109,9 @@ class ManualItemViewController: UITableViewController, UITextFieldDelegate {
                 carbohydrates: Float(values[7])!,
                 protein: Float(values[8])!
             )
-        ).commit {
+        )
+            
+        item.commit {
             error in
             alertController.dismissViewControllerAnimated(
                 true,
