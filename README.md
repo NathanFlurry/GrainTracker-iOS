@@ -12,3 +12,6 @@ This was developed for the 2015 July AZCodeChallenge.
 - Enter an item with its barcode and automatically get its nutrition information and name
 - Product images automatically fetched form Google images
 - Manually add your own items
+
+## Server
+Please see [this](https://github.com/NathanFlurry/GrainTracker-Server) for the server.
